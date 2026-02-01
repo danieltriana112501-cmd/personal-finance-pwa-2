@@ -154,63 +154,63 @@ export function FastTrackDashboard() {
             </div>
 
             {/* Category Grid */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-3 gap-2 mb-2 w-full max-h-[35vh] overflow-y-auto">
                 {categories.map((cat) => (
                     <button
                         key={cat.id}
                         onClick={() => setSelectedCategory(cat.id)}
                         className={cn(
-                            "flex flex-col items-center justify-center gap-2 transition-all p-4 rounded-2xl border",
+                            "flex flex-col items-center justify-center gap-1 transition-all p-2 rounded-xl border",
                             selectedCategory === cat.id ? "bg-zinc-800 border-zinc-600 scale-95" : "bg-zinc-900 border-zinc-800 hover:bg-zinc-800"
                         )}
                     >
-                        <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white", cat.color)}>
-                            <cat.icon className="w-5 h-5" />
+                        <div className={cn("w-8 h-8 rounded-full flex items-center justify-center text-white", cat.color)}>
+                            <cat.icon className="w-4 h-4" />
                         </div>
-                        <span className="text-xs font-medium text-zinc-300">{cat.label}</span>
+                        <span className="text-[10px] font-medium text-zinc-300">{cat.label}</span>
                     </button>
                 ))}
             </div>
 
             {/* Number Pad */}
-            <div className="grid grid-cols-3 gap-4 pb-8">
+            <div className="grid grid-cols-3 gap-2 pb-20 w-full">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                     <button
                         key={num}
                         onClick={() => handleDigit(num.toString())}
-                        className="h-16 text-2xl font-semibold bg-transparent hover:bg-zinc-900 rounded-full transition-colors text-zinc-200"
+                        className="h-14 text-xl font-semibold bg-transparent hover:bg-zinc-900 rounded-full transition-colors text-zinc-200"
                     >
                         {num}
                     </button>
                 ))}
                 <button
-                    className="h-16 text-2xl font-semibold bg-transparent hover:bg-zinc-900 rounded-full transition-colors text-zinc-500"
+                    className="h-14 text-xl font-semibold bg-transparent hover:bg-zinc-900 rounded-full transition-colors text-zinc-500"
                     onClick={() => setAmount("0")} // Clear
                 >
                     C
                 </button>
                 <button
                     onClick={() => handleDigit("0")}
-                    className="h-16 text-2xl font-semibold bg-transparent hover:bg-zinc-900 rounded-full transition-colors text-zinc-200"
+                    className="h-14 text-xl font-semibold bg-transparent hover:bg-zinc-900 rounded-full transition-colors text-zinc-200"
                 >
                     0
                 </button>
                 <button
                     onClick={handleDelete}
-                    className="h-16 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-full transition-colors"
+                    className="h-14 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-full transition-colors"
                 >
-                    <Delete className="w-6 h-6" />
+                    <Delete className="w-5 h-5" />
                 </button>
             </div>
 
             {/* Floating Action Button */}
-            <div className="absolute bottom-6 right-6">
+            <div className="absolute bottom-6 right-6 z-10">
                 <button
                     onClick={handleSubmit}
                     disabled={isPending}
-                    className="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+                    className="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
                 >
-                    {isPending ? <Loader2 className="w-8 h-8 animate-spin" /> : <Plus className="w-8 h-8" />}
+                    {isPending ? <Loader2 className="w-6 h-6 animate-spin" /> : <Plus className="w-6 h-6" />}
                 </button>
             </div>
         </div>

@@ -63,7 +63,50 @@ export function BudgetCard() {
         }).format(amount);
     };
 
+    const handleInitializeDefaults = async () => {
+        const defaults = [
+            { category: "food", limit_amount: 800000 },
+            { category: "transport", limit_amount: 400000 },
+            { category: "shopping", limit_amount: 200000 },
+            { category: "bills", limit_amount: 350000 },
+            { category: "coffee", limit_amount: 150000 },
+            { category: "other", limit_amount: 100000 },
+        ];
+
+        const { error } = await supabase.from("budgets").insert(defaults);
+        if (error) {
+            console.error(error);
+            // toast.error("Error creating defaults"); // Removed to avoid missing import
+        } else {
+            // toast.success("Defaults created!");
+            window.location.reload();
+        }
+    };
+
     if (loading) return <div className="p-4 flex justify-center"><Loader2 className="animate-spin text-white" /></div>;
+
+    if (budgets.length === 0) {
+        return (
+            <div className="p-6 bg-zinc-900 rounded-2xl border border-zinc-800 flex flex-col items-center text-center space-y-4">
+                <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center text-zinc-400">
+                    <CopyPlus className="w-6 h-6" />
+                </div>
+                <div>
+                    <h3 className="text-white font-medium">Sin Presupuestos</h3>
+                    <p className="text-sm text-zinc-500 mt-1">Comienza controlando tus gastos.</p>
+                </div>
+                <button
+                    onClick={handleInitializeDefaults}
+                    className="w-full bg-white text-black font-medium py-2 rounded-lg text-sm hover:opacity-90 transition-opacity"
+                >
+                    Cargar Presupuestos Básicos
+                </button>
+                <div className="w-full pt-2 border-t border-zinc-800/50">
+                    <ManageBudgetDrawer onUpdate={() => window.location.reload()} />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 bg-zinc-900 rounded-2xl border border-zinc-800 space-y-4">
